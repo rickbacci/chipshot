@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>CHIPSHOT</title>
+  <link rel="stylesheet" href="css/game.css" />
+</head>
+<body>
+  <div id="app">
+    <aside id="left">
+      <h1>CHIPSHOT</h1>
+      <div class="label">SCORE</div>
+      <div id="score">000000</div>
+      <div class="label">LIVES</div>
+      <div id="lives"></div>
+      <div class="label">TIME</div>
+      <div id="time">0:00</div>
+      <p class="controls">Arrows or WASD to move. Drag with a finger or the mouse. The guns stay on. Enter starts a run. R restarts.</p>
+    </aside>
+    <div id="stage">
+      <div id="frame">
+        <canvas id="game" width="360" height="640"></canvas>
+        <div id="overlay">
+          <p id="ov-kicker">DEEP SPACE</p>
+          <h2 id="ov-title">CHIPSHOT</h2>
+          <p id="ov-score"></p>
+          <p id="ov-body"></p>
+          <button id="ov-btn" type="button">START</button>
+          <p id="ov-hint"></p>
+        </div>
+      </div>
+    </div>
+    <aside id="right">
+      <div class="label">SPECIAL</div>
+      <div id="weapon-name">NONE</div>
+      <div id="weapon-level">LV —</div>
+      <div id="pips" class="pips"></div>
+      <p id="stakes"></p>
+      <div class="legend">
+        <div><span class="c1">1</span> SPREAD — a fan of shots</div>
+        <div><span class="c6">6</span> LASER — a piercing beam</div>
+      </div>
+    </aside>
+  </div>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
