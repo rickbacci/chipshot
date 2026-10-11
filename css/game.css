@@ -1,0 +1,250 @@
+:root {
+  color-scheme: dark;
+  --bg: #070910;
+  --panel: #0e141f;
+  --line: #243044;
+  --text: #e6edf7;
+  --dim: #8d9bb0;
+  --amber: #ffb020;
+  --mint: #3ef0d2;
+  --danger: #ff5d78;
+  --font: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+}
+
+button { font-family: inherit; }
+
+#app {
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 18px;
+  padding: 16px 18px;
+  align-items: center;
+  user-select: none;
+}
+
+aside {
+  max-width: 280px;
+}
+
+#left { justify-self: end; }
+#right { justify-self: start; }
+
+h1 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  font-weight: 700;
+}
+
+.label {
+  color: var(--dim);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  margin: 16px 0 4px;
+}
+
+#score, #time {
+  font-size: 28px;
+  letter-spacing: 0.06em;
+}
+
+#lives {
+  font-size: 18px;
+  letter-spacing: 0.12em;
+  color: var(--ship, #8ae7ff);
+}
+
+#weapon-name {
+  font-size: 26px;
+  letter-spacing: 0.14em;
+}
+
+#weapon-level {
+  margin-top: 4px;
+  font-size: 18px;
+  color: var(--dim);
+}
+
+.c1, .spread { color: var(--amber); }
+.c6, .laser { color: var(--mint); }
+
+#stakes {
+  color: var(--dim);
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 28ch;
+  margin: 16px 0 0;
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 18px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+
+.legend span {
+  display: inline-block;
+  min-width: 1.2em;
+  font-weight: 700;
+}
+
+.controls {
+  margin: 22px 0 0;
+  color: var(--dim);
+  font-size: 12px;
+  line-height: 1.5;
+  max-width: 28ch;
+}
+
+.pips {
+  display: flex;
+  gap: 5px;
+  margin-top: 10px;
+}
+
+.pip {
+  width: 18px;
+  height: 8px;
+  background: #1c2838;
+}
+
+.pips.spread .pip.on { background: var(--amber); }
+.pips.laser .pip.on { background: var(--mint); }
+
+#stage {
+  height: calc(100dvh - 32px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#frame {
+  height: 100%;
+  aspect-ratio: 9 / 16;
+  position: relative;
+  background: #05070c;
+  box-shadow: 0 0 0 1px var(--line), 0 24px 70px rgba(0, 0, 0, 0.4);
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+#overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 28px 22px;
+  background: rgba(5, 7, 12, 0.72);
+  gap: 8px;
+}
+
+#overlay[hidden] { display: none !important; }
+
+#ov-kicker {
+  margin: 0;
+  color: var(--amber);
+  letter-spacing: 0.28em;
+  font-size: 11px;
+}
+
+#ov-title {
+  margin: 0;
+  font-size: 34px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+}
+
+#ov-score {
+  margin: 4px 0 0;
+  font-size: 28px;
+  letter-spacing: 0.08em;
+  min-height: 1.2em;
+}
+
+#ov-body {
+  margin: 4px 0 8px;
+  max-width: 28ch;
+  color: var(--dim);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#ov-hint {
+  margin: 8px 0 0;
+  color: var(--dim);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  max-width: 30ch;
+  line-height: 1.45;
+}
+
+button {
+  margin-top: 6px;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--amber);
+  padding: 12px 28px;
+  letter-spacing: 0.2em;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover { background: rgba(255, 176, 32, 0.12); }
+
+button:focus-visible {
+  outline: 2px solid var(--mint);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  #app {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 8px;
+    padding: 8px;
+    align-items: stretch;
+  }
+
+  #left, #right {
+    justify-self: stretch;
+    max-width: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    align-items: baseline;
+  }
+
+  h1 { margin: 0; width: 100%; }
+  .label { margin: 0; }
+  #score, #time, #weapon-name { font-size: 18px; }
+  .controls, #stakes, .legend { display: none; }
+  #stage { height: auto; min-height: 0; }
+  #frame {
+    height: auto;
+    width: min(100%, calc((100dvh - 132px) * 9 / 16));
+    max-height: calc(100dvh - 132px);
+  }
+  #ov-title { font-size: 26px; }
+}
