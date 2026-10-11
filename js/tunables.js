@@ -20,11 +20,13 @@ export const TUNABLES = {
   chipCycleMax: 3,
   // Invulnerability granted on every chip pickup, including a maxed weapon.
   pickupInvuln: 1,
-  chipDropChance: 0.45,
+  chipDropChance: 0.28,
   chipFallSpeed: 72,
   chipRadius: 26,
   chipArm: 0.4,
-  chipDrift: 22,
+  // Minimum sideways speed is about half of this, so drops leave the shot column.
+  chipDrift: 78,
+  maxChips: 3,
   lives: 3,
   scorePerKill: 100,
   playerSpeed: 250,

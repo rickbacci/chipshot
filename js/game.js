@@ -116,13 +116,15 @@ export function createGame(input, options = {}) {
   }
 
   function spawnChip(x, y) {
+    if (state.chips.length >= TUNABLES.maxChips) return;
     const numbers = TUNABLES.chipNumbers;
     const index = Math.min(numbers.length - 1, Math.floor(rng() * numbers.length));
     const cycleMax = rollCycleSeconds(rng);
+    const dir = rng() < 0.5 ? -1 : 1;
     state.chips.push({
       x,
       y,
-      vx: (rng() * 2 - 1) * TUNABLES.chipDrift,
+      vx: dir * TUNABLES.chipDrift * (0.55 + rng() * 0.45),
       vy: TUNABLES.chipFallSpeed,
       r: TUNABLES.chipRadius,
       n: numbers[index],
@@ -415,8 +417,9 @@ export function createGame(input, options = {}) {
       if (enemy.hp <= 0) killEnemy(enemy);
     }
 
+    let pickedChip = false;
     for (const chip of state.chips) {
-      if (chip.dead || (chip.armIn ?? 0) > 0) continue;
+      if (pickedChip || chip.dead || (chip.armIn ?? 0) > 0) continue;
       if (!hits(state.player, chip)) continue;
       const next = applyChip(state.player, chip.n);
       if (next.action === 'ignore') continue;
@@ -424,6 +427,7 @@ export function createGame(input, options = {}) {
       state.player.level = next.level;
       state.player.invuln = Math.max(state.player.invuln, pickupInvulnSeconds());
       chip.dead = true;
+      pickedChip = true;
       const table = TUNABLES.weapons[next.weapon];
       const color = table?.kind === 'laser' ? '#3ef0d2' : '#ffb020';
       floater(weaponLabel(next), chip.x, chip.y, color);

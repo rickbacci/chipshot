@@ -53,6 +53,19 @@ test('a matching chip levels the weapon and grants pickup invulnerability', () =
   assert.equal(game.state.chips.length, 0);
 });
 
+test('overlapping chips apply one pickup per frame', () => {
+  const game = harness(idle);
+  const player = game.state.player;
+  player.weapon = 1;
+  player.level = 1;
+  game.state.chips.push(chipAt(player.x, player.y, 6), chipAt(player.x, player.y, 1));
+  game.update(1 / 60);
+  assert.equal(player.weapon, 6);
+  assert.equal(player.level, 0);
+  assert.equal(game.state.chips.length, 1);
+  assert.equal(game.state.chips[0].n, 1);
+});
+
 test('a different chip switches to level 0', () => {
   const game = harness(idle);
   const player = game.state.player;
